@@ -4,6 +4,7 @@ import Amplify, { PubSub } from 'aws-amplify';
 import { AWSIoTProvider } from '@aws-amplify/pubsub/lib/Providers';
 import nelson from './nelson_quadrado.png';
 import claire from './claire.jpg';
+import Message from './Message';
 
 Amplify.configure({
   Auth: {
@@ -33,6 +34,8 @@ class App extends Component {
 
   marginLeft = '30px';
   marginRight = '30px';
+  message =
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.';
 
   render() {
     //console.log(process.env);
@@ -48,103 +51,30 @@ class App extends Component {
         <section class="hero is-primary is-fullheight-with-navbar">
           <div class="hero-body">
             <div class="tile is-ancestor is-vertical">
-              <div
-                class="tile"
-                style={{ marginTop: '12px', marginRight: this.marginRight }}
-              >
-                <div class="box">
-                  <article class="media">
-                    <div class="media-left">
-                      <figure class="image is-32x32">
-                        <img src={nelson} alt="Image" />
-                      </figure>
-                    </div>
-                    <div class="media-content">
-                      <div class="content">
-                        <p>
-                          <strong>Nelson Larios</strong> <br />
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Aenean efficitur sit amet massa fringilla
-                          egestas. Nullam condimentum luctus turpis.
-                        </p>
-                      </div>
-                    </div>
-                  </article>
+              <Message message={this.message} user={'Nelson Larios'} />
+
+              <Message message={this.message} user={'Claire Astle'} />
+
+              <Message message={this.message} user={'Nelson Larios'} />
+
+              <Message message={this.message} user={'Claire Astle'} />
+            </div>
+          </div>
+
+          <div class="hero-foot">
+            <div class="container">
+              <div class="field">
+                <div class="control">
+                  <input
+                    class="input is-rounded is-primary"
+                    type="text"
+                    placeholder="Primary input"
+                  />
                 </div>
               </div>
-
-              <div
-                class="tile"
-                style={{ marginTop: '12px', marginLeft: this.marginLeft }}
-              >
-                <div class="box">
-                  <article class="media">
-                    <div class="media-left">
-                      <figure class="image is-32x32">
-                        <img src={claire} alt="Image" />
-                      </figure>
-                    </div>
-                    <div class="media-content">
-                      <div class="content">
-                        <p>
-                          <strong>Claire Astle</strong> <br />
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Aenean efficitur sit amet massa fringilla
-                          egestas. Nullam condimentum luctus turpis.
-                        </p>
-                      </div>
-                    </div>
-                  </article>
-                </div>
-              </div>
-
-              <div
-                class="tile"
-                style={{ marginTop: '12px', marginRight: this.marginRight }}
-              >
-                <div class="box">
-                  <article class="media">
-                    <div class="media-left">
-                      <figure class="image is-32x32">
-                        <img src={nelson} alt="Image" />
-                      </figure>
-                    </div>
-                    <div class="media-content">
-                      <div class="content">
-                        <p>
-                          <strong>Nelson Larios</strong> <br />
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Aenean efficitur sit amet massa fringilla
-                          egestas. Nullam condimentum luctus turpis.
-                        </p>
-                      </div>
-                    </div>
-                  </article>
-                </div>
-              </div>
-
-              <div
-                class="tile"
-                style={{ marginTop: '12px', marginLeft: this.marginLeft }}
-              >
-                <div class="box">
-                  <article class="media">
-                    <div class="media-left">
-                      <figure class="image is-32x32">
-                        <img src={claire} alt="Image" />
-                      </figure>
-                    </div>
-                    <div class="media-content">
-                      <div class="content">
-                        <p>
-                          <strong>Claire Astle</strong> <br />
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Aenean efficitur sit amet massa fringilla
-                          egestas. Nullam condimentum luctus turpis.
-                        </p>
-                      </div>
-                    </div>
-                  </article>
+              <div class="field is-pulled-right">
+                <div class="control">
+                  <button class="button is-link  is-small">Send</button>
                 </div>
               </div>
             </div>
