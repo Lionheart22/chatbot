@@ -31,6 +31,9 @@ class App extends Component {
     });
   }
 
+  marginLeft = '30px';
+  marginRight = '30px';
+
   render() {
     //console.log(process.env);
     return (
@@ -44,108 +47,104 @@ class App extends Component {
         </nav>
         <section class="hero is-primary is-fullheight-with-navbar">
           <div class="hero-body">
-            <div className="section">
-              <div class="tile is-ancestor is-vertical">
-                <div class="tile" style={{ marginTop: '12px' }}>
-                  <div class="box">
-                    <article class="media">
-                      <div class="media-left">
-                        <figure class="image is-64x64">
-                          <img src={nelson} alt="Image" />
-                        </figure>
+            <div class="tile is-ancestor is-vertical">
+              <div
+                class="tile"
+                style={{ marginTop: '12px', marginRight: this.marginRight }}
+              >
+                <div class="box">
+                  <article class="media">
+                    <div class="media-left">
+                      <figure class="image is-32x32">
+                        <img src={nelson} alt="Image" />
+                      </figure>
+                    </div>
+                    <div class="media-content">
+                      <div class="content">
+                        <p>
+                          <strong>Nelson Larios</strong> <br />
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Aenean efficitur sit amet massa fringilla
+                          egestas. Nullam condimentum luctus turpis.
+                        </p>
                       </div>
-                      <div class="media-content">
-                        <div class="content">
-                          <p>
-                            <strong>Nelson Larios</strong>{' '}
-                            <small>@nelsonlarios</small> <small>31m</small>
-                            <br />
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Aenean efficitur sit amet massa fringilla
-                            egestas. Nullam condimentum luctus turpis.
-                          </p>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
+                    </div>
+                  </article>
                 </div>
+              </div>
 
-                <div
-                  class="tile"
-                  style={{ marginTop: '12px', marginLeft: '100px' }}
-                >
-                  <div class="box">
-                    <article class="media">
-                      <div class="media-left">
-                        <figure class="image is-64x64">
-                          <img src={claire} alt="Image" />
-                        </figure>
+              <div
+                class="tile"
+                style={{ marginTop: '12px', marginLeft: this.marginLeft }}
+              >
+                <div class="box">
+                  <article class="media">
+                    <div class="media-left">
+                      <figure class="image is-32x32">
+                        <img src={claire} alt="Image" />
+                      </figure>
+                    </div>
+                    <div class="media-content">
+                      <div class="content">
+                        <p>
+                          <strong>Claire Astle</strong> <br />
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Aenean efficitur sit amet massa fringilla
+                          egestas. Nullam condimentum luctus turpis.
+                        </p>
                       </div>
-                      <div class="media-content">
-                        <div class="content">
-                          <p>
-                            <strong>Claire Astle</strong>{' '}
-                            <small>@claireastle</small> <small>31m</small>
-                            <br />
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Aenean efficitur sit amet massa fringilla
-                            egestas. Nullam condimentum luctus turpis.
-                          </p>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
+                    </div>
+                  </article>
                 </div>
+              </div>
 
-                <div class="tile" style={{ marginTop: '12px' }}>
-                  <div class="box">
-                    <article class="media">
-                      <div class="media-left">
-                        <figure class="image is-64x64">
-                          <img src={nelson} alt="Image" />
-                        </figure>
+              <div
+                class="tile"
+                style={{ marginTop: '12px', marginRight: this.marginRight }}
+              >
+                <div class="box">
+                  <article class="media">
+                    <div class="media-left">
+                      <figure class="image is-32x32">
+                        <img src={nelson} alt="Image" />
+                      </figure>
+                    </div>
+                    <div class="media-content">
+                      <div class="content">
+                        <p>
+                          <strong>Nelson Larios</strong> <br />
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Aenean efficitur sit amet massa fringilla
+                          egestas. Nullam condimentum luctus turpis.
+                        </p>
                       </div>
-                      <div class="media-content">
-                        <div class="content">
-                          <p>
-                            <strong>Nelson Larios</strong>{' '}
-                            <small>@nelsonlarios</small> <small>31m</small>
-                            <br />
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Aenean efficitur sit amet massa fringilla
-                            egestas. Nullam condimentum luctus turpis.
-                          </p>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
+                    </div>
+                  </article>
                 </div>
+              </div>
 
-                <div
-                  class="tile"
-                  style={{ marginTop: '12px', marginLeft: '100px' }}
-                >
-                  <div class="box">
-                    <article class="media">
-                      <div class="media-left">
-                        <figure class="image is-64x64">
-                          <img src={claire} alt="Image" />
-                        </figure>
+              <div
+                class="tile"
+                style={{ marginTop: '12px', marginLeft: this.marginLeft }}
+              >
+                <div class="box">
+                  <article class="media">
+                    <div class="media-left">
+                      <figure class="image is-32x32">
+                        <img src={claire} alt="Image" />
+                      </figure>
+                    </div>
+                    <div class="media-content">
+                      <div class="content">
+                        <p>
+                          <strong>Claire Astle</strong> <br />
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Aenean efficitur sit amet massa fringilla
+                          egestas. Nullam condimentum luctus turpis.
+                        </p>
                       </div>
-                      <div class="media-content">
-                        <div class="content">
-                          <p>
-                            <strong>Claire Astle</strong>{' '}
-                            <small>@claireastle</small> <small>31m</small>
-                            <br />
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Aenean efficitur sit amet massa fringilla
-                            egestas. Nullam condimentum luctus turpis.
-                          </p>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
+                    </div>
+                  </article>
                 </div>
               </div>
             </div>
