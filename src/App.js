@@ -1,9 +1,14 @@
-import React, { Component, Fragment } from 'react';
+import React, {
+  Fragment,
+  useState,
+  useEffect,
+  useReducer,
+  useRef
+} from 'react';
 import './App.css';
 import Amplify, { PubSub } from 'aws-amplify';
 import { AWSIoTProvider } from '@aws-amplify/pubsub/lib/Providers';
-import nelson from './nelson_quadrado.png';
-import claire from './claire.jpg';
+
 import Message from './Message';
 
 Amplify.configure({
@@ -20,68 +25,132 @@ Amplify.addPluggable(
     aws_pubsub_endpoint: `wss://${process.env.REACT_APP_MQTT_ID}.iot.${process.env.REACT_APP_REGION}.amazonaws.com/mqtt`
   })
 );
-Amplify.PubSub.subscribe('real-time-weather').subscribe({
-  next: data => console.log('Message received', data),
-  error: error => console.error(error),
-  close: () => console.log('Done')
-});
-class App extends Component {
-  async publishMessage() {
-    await PubSub.publish('real-time-weather', {
-      msg: 'Hello to all subscribers!'
-    });
-  }
 
-  marginLeft = '30px';
-  marginRight = '30px';
-  message =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.';
+const initialState = { messages: [] };
 
-  render() {
-    //console.log(process.env);
-    return (
-      <Fragment>
-        <nav class="navbar is-fixed-top">
-          <div class="container">
-            <div class="navbar-brand">
-              <a class="navbar-item">THE LITTLE CHAT</a>
-            </div>
-          </div>
-        </nav>
-        <section class="hero is-primary is-fullheight-with-navbar">
-          <div class="hero-body">
-            <div class="tile is-ancestor is-vertical">
-              <Message message={this.message} user={'Nelson Larios'} />
-
-              <Message message={this.message} user={'Claire Astle'} />
-
-              <Message message={this.message} user={'Nelson Larios'} />
-
-              <Message message={this.message} user={'Claire Astle'} />
-            </div>
-          </div>
-
-          <div class="hero-foot">
-            <div class="container">
-              <div class="field">
-                <div class="control">
-                  <input
-                    class="input is-rounded is-primary"
-                    type="text"
-                    placeholder="Primary input"
-                  />
-                </div>
-              </div>
-              <div class="field is-pulled-right">
-                <div class="control">
-                  <button class="button is-link  is-small">Send</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </Fragment>
-    );
+function reducer(state, action) {
+  switch (action.type) {
+    case 'addMessage':
+      return { messages: [...state.messages, action.payload] };
+    default:
+      throw new Error();
   }
 }
-export default App;
+
+export default function App() {
+  const [msg, setMsg] = useState('');
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [user, setUser] = useState('Claire Astle');
+  const textInput = useRef(null);
+
+  console.log(state.messages);
+
+  useEffect(() => {
+    Amplify.PubSub.subscribe('chatbot').subscribe({
+      next: data => {
+        console.log('Message received', data);
+        dispatch({ type: 'addMessage', payload: data.value });
+      },
+      error: error => console.error(error),
+      close: () => console.log('Done')
+    });
+    textInput.current.focus();
+  }, []);
+
+  const publishMessage = async () => {
+    await PubSub.publish('chatbot', {
+      msg: msg,
+      user: user
+    });
+
+    setMsg('');
+    textInput.current.focus();
+  };
+
+  const handleMsgChange = event => {
+    setMsg(event.target.value);
+  };
+
+  const handleChangeUser = user => {
+    setUser(user);
+  };
+
+  return (
+    <Fragment>
+      <nav className="navbar is-fixed-top">
+        <div className="container">
+          <div className="navbar-brand">
+            <span className="navbar-item">THE LITTLE CHAT</span>
+          </div>
+
+          <div className="navbar-end">
+            <div className="navbar-item">
+              <div className="buttons">
+                <span
+                  className={
+                    user === 'Nelson Larios'
+                      ? 'button is-primary'
+                      : 'button is-light'
+                  }
+                  onClick={() => handleChangeUser('Nelson Larios')}
+                >
+                  <strong>Nelson</strong>
+                </span>
+                <span
+                  className={
+                    user === 'Claire Astle'
+                      ? 'button is-primary'
+                      : 'button is-light'
+                  }
+                  onClick={() => handleChangeUser('Claire Astle')}
+                >
+                  Claire
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <section className="hero is-primary is-fullheight-with-navbar">
+        <div className="hero-body">
+          <div className="tile is-ancestor is-vertical">
+            <Message message={'Hello, Claire!'} user={'Nelson Larios'} />
+
+            <Message message={'Hello, Nelson'} user={'Claire Astle'} />
+
+            {state.messages.map(message => (
+              <Message message={message.msg} user={message.user} />
+            ))}
+          </div>
+        </div>
+
+        <div className="hero-foot">
+          <div className="container">
+            <div className="field">
+              <div className="control">
+                <input
+                  className="input is-rounded is-primary"
+                  type="text"
+                  placeholder="Primary input"
+                  onChange={handleMsgChange}
+                  value={msg}
+                  ref={textInput}
+                />
+              </div>
+            </div>
+            <div className="field is-pulled-right">
+              <div className="control">
+                <button
+                  className="button is-link  is-small"
+                  onClick={publishMessage}
+                >
+                  Send
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </Fragment>
+  );
+}

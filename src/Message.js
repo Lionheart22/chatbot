@@ -8,25 +8,25 @@ export default function Message({ message, user }) {
 
   return (
     <div
-      class="tile"
+      className="tile"
       style={
         user === 'Claire Astle'
           ? { marginTop: '12px', marginLeft: marginLeft }
           : { marginTop: '12px', marginRight: marginRight }
       }
     >
-      <div class="box">
-        <article class="media">
-          <div class="media-left">
-            <figure class="image is-32x32">
+      <div className="box">
+        <article className="media">
+          <div className="media-left">
+            <figure className="image is-32x32">
               <img
                 src={user === 'Claire Astle' ? claire : nelson}
-                alt="Image"
+                alt="Avatar"
               />
             </figure>
           </div>
-          <div class="media-content">
-            <div class="content">
+          <div className="media-content">
+            <div className="content">
               <p>
                 <strong>{user}</strong> <br />
                 {message}
