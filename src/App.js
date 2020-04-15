@@ -42,14 +42,18 @@ export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [user, setUser] = useState('Claire Astle');
   const textInput = useRef(null);
+  const sendButton = useRef(null);
 
   console.log(state.messages);
+
+  const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
 
   useEffect(() => {
     Amplify.PubSub.subscribe('chatbot').subscribe({
       next: data => {
         console.log('Message received', data);
         dispatch({ type: 'addMessage', payload: data.value });
+        sendButton.current.scrollIntoView({ behavior: 'smooth' });
       },
       error: error => console.error(error),
       close: () => console.log('Done')
@@ -71,12 +75,18 @@ export default function App() {
     setMsg(event.target.value);
   };
 
+  const handleEnter = event => {
+    if (event.keyCode === 13) {
+      publishMessage();
+    }
+  };
+
   const handleChangeUser = user => {
     setUser(user);
   };
 
   return (
-    <Fragment>
+    <div style={{ overflow: 'scrollY' }}>
       <nav className="navbar is-fixed-top">
         <div className="container">
           <div className="navbar-brand">
@@ -131,10 +141,11 @@ export default function App() {
                 <input
                   className="input is-rounded is-primary"
                   type="text"
-                  placeholder="Primary input"
+                  placeholder="Press enter or click the button to send"
                   onChange={handleMsgChange}
                   value={msg}
                   ref={textInput}
+                  onKeyUp={handleEnter}
                 />
               </div>
             </div>
@@ -143,6 +154,7 @@ export default function App() {
                 <button
                   className="button is-link  is-small"
                   onClick={publishMessage}
+                  ref={sendButton}
                 >
                   Send
                 </button>
@@ -151,6 +163,6 @@ export default function App() {
           </div>
         </div>
       </section>
-    </Fragment>
+    </div>
   );
 }
