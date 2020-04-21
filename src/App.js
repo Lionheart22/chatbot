@@ -33,14 +33,14 @@ function reducer(state, action) {
     case 'addMessage':
       return { messages: [...state.messages, action.payload] };
     default:
-      throw new Error();
+      throw new Error(); 
   }
 }
 
 export default function App() {
   const [msg, setMsg] = useState('');
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [user, setUser] = useState('Claire Astle');
+  const [user, setUser] = useState('Claire Astles');
   const textInput = useRef(null);
   const sendButton = useRef(null);
 
